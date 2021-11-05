@@ -2,15 +2,29 @@
   <div class="wrapper">
     <div class="container">
       <form class="todo-form">
-        <input
-          type="text"
-          placeholder="todo..."
-          class="text-input"
-          v-model="inputValue"
-        />
-        <input type="submit" value="Add" class="add-button" />
+        <div class="input-cnt">
+          <input
+            type="text"
+            placeholder="todo..."
+            class="text-input"
+            v-model="inputValue"
+          />
+          <input
+            type="submit"
+            value="Add"
+            class="add-button"
+            @click="handleAdd"
+          />
+        </div>
+
+        <div v-for="item in addList" :key="item.id" class="added-list">
+          <li>{{ item.inputValue }}</li>
+          <div class="edit-delete">
+            <button class="edit-btn">Edit</button>
+            <button class="delete-btn">Delete</button>
+          </div>
+        </div>
       </form>
-      <div class="added-list">{{ inputValue }}</div>
     </div>
   </div>
 </template>
@@ -22,7 +36,27 @@ export default {
   data() {
     return {
       inputValue: "",
+      addList: [{ inputValue: "hey", id: Math.random() }],
     };
+  },
+  methods: {
+    handleAdd() {
+      console.log("arev");
+      if (this.inputValue !== "") {
+        return {
+          addList: [
+            ...this.addList,
+            {
+              id: Math.random(),
+              inputValue: this.inputValue,
+              isChecked: false,
+              isEditMode: false,
+            },
+          ],
+          inputValue: "",
+        };
+      }
+    },
   },
 };
 </script>
@@ -40,17 +74,13 @@ export default {
   flex-wrap: wrap;
 }
 .todo-form {
-  width: 300px;
-  display: flex;
-  justify-content: center;
-
-  background-color: #b0b0b0;
 }
 .added-list {
-  background-color: red;
-  height: 50px;
+  background-color: #b0b0b0;
+  height: 40px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 .add-button {
   height: 35px;
@@ -60,6 +90,17 @@ export default {
 }
 .text-input {
   height: 30px;
-  width: 400px;
+  width: 200px;
+}
+.input-cnt {
+  display: flex;
+}
+.edit-btn {
+  color: white;
+  background-color: blue;
+}
+.delete-btn {
+  color: white;
+  background-color: red;
 }
 </style>
