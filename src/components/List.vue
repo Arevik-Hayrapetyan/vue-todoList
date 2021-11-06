@@ -90,7 +90,7 @@ export default {
       console.log(this.addList[index].isChecked);
     },
     handleRemove() {
-      this.addList = this.addList.filter((el) => el.isChecked === true);
+      this.addList = this.addList.filter((el) => el.isChecked === false);
       console.log(this.addList);
     },
   },
