@@ -13,20 +13,17 @@
 
       <div v-for="(item, index) in addList" :key="index" class="added-list">
         <div class="value-cnt">
-          <input
-            type="checkbox"
-            :isChecked="item.isChecked"
-            @click="handleChecker(index)"
-          />
-          <div style="text-decoration-line: ">
-            {{ item.inputValue }}
-          </div>
+          <input type="checkbox" @click="handleChecker(index)" />
+          <label
+            v-bind:style="[
+              item.isChecked
+                ? { textDecoration: line - through }
+                : { textDecoration: none },
+            ]"
+            >{{ item.inputValue }}</label
+          >
         </div>
         <div class="edit-delete">
-          <span class="status-btn" @click="handleStatus(index)">{{
-            item.status
-          }}</span>
-
           <i class="far fa-edit edit-btn" @click="handleEdit(index)"></i>
           <i
             class="far fa-trash-alt delete-btn"
@@ -49,7 +46,7 @@ export default {
       editedTask: null,
       index: Math.random(),
       inputValue: "",
-      status: "todo",
+
       addList: [],
     };
   },
@@ -79,21 +76,14 @@ export default {
       this.inputValue = this.addList[index].inputValue;
       this.editedTask = index;
     },
-    handleStatus(index) {
-      if (this.addList[index].status === "todo") {
-        this.addList[index].status = "in-progress";
-      } else if (this.addList[index].status === "in-progress") {
-        this.addList[index].status = "ended todo";
-      } else {
-        this.addList[index].status = "todo";
-      }
-    },
+
     handleChecker(index) {
       if (this.addList[index].isChecked === false) {
         this.addList[index].isChecked = true;
       } else {
         this.addList[index].isChecked = false;
       }
+      console.log(this.addList[index].isChecked);
     },
   },
 };
@@ -162,8 +152,5 @@ export default {
 .edit-delete {
   display: flex;
   justify-content: space-between;
-}
-.isChecked {
-  text-decoration: line-through;
 }
 </style>
