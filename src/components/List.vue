@@ -31,6 +31,11 @@
           ></i>
         </div>
       </div>
+      <div class="remove-cnt">
+        <button class="remove-btn" @click="handleRemove(item)">
+          Remove checked
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -46,7 +51,6 @@ export default {
       editedTask: null,
       index: Math.random(),
       inputValue: "",
-
       addList: [],
     };
   },
@@ -84,6 +88,10 @@ export default {
         this.addList[index].isChecked = false;
       }
       console.log(this.addList[index].isChecked);
+    },
+    handleRemove() {
+      this.addList = this.addList.filter((el) => el.isChecked === false);
+      console.log(this.addList);
     },
   },
 };
@@ -142,9 +150,7 @@ export default {
   color: #4682b4;
   margin-left: 2px;
 }
-.status-btn {
-  cursor: pointer;
-}
+
 .value-cnt {
   margin-left: 0;
   display: flex;
@@ -152,5 +158,16 @@ export default {
 .edit-delete {
   display: flex;
   justify-content: space-between;
+}
+.remove-btn {
+  height: 40px;
+  width: 100px;
+  color: white;
+  background-color: #4682b4;
+  border-radius: 4px;
+}
+.remove-cnt {
+  display: flex;
+  justify-content: center;
 }
 </style>
