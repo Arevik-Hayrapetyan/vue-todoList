@@ -17,8 +17,8 @@
           <label
             v-bind:style="[
               item.isChecked
-                ? { textDecoration: line - through }
-                : { textDecoration: none },
+                ? { 'text-decoration': 'line-through' }
+                : { 'text-decoration': 'none' },
             ]"
             >{{ item.inputValue }}</label
           >
@@ -90,7 +90,7 @@ export default {
       console.log(this.addList[index].isChecked);
     },
     handleRemove() {
-      this.addList = this.addList.filter((el) => el.isChecked === false);
+      this.addList = this.addList.filter((el) => el.isChecked === true);
       console.log(this.addList);
     },
   },
