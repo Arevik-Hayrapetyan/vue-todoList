@@ -17,5 +17,6 @@ export default {
 .list {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 </style>

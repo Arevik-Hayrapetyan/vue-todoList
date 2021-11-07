@@ -1,6 +1,7 @@
 <template>
   <div class="wrapper">
     <div class="container">
+      <h3>TODOLIST</h3>
       <div class="input-cnt">
         <input
           type="text"
@@ -24,16 +25,24 @@
           >
         </div>
         <div class="edit-delete">
-          <i class="far fa-edit edit-btn" @click="handleEdit(index)"></i>
           <i
-            class="far fa-trash-alt delete-btn"
+            v-bind:style="[
+              item.isEditMode ? { color: '#4682b4' } : { color: '#bebebe' },
+            ]"
+            class="fas fa-pen edit-btn"
+            @click="handleEdit(index)"
+          ></i>
+          <i
+            class="fas fa-backspace delete-btn"
             @click="handleDelete(index)"
           ></i>
         </div>
       </div>
+
       <div class="remove-cnt">
+        <div class="listdone-info">ewdwede</div>
         <button class="remove-btn" @click="handleRemove(item)">
-          Remove checked
+          Remove checked X
         </button>
       </div>
     </div>
@@ -47,6 +56,7 @@ export default {
 
   data() {
     return {
+      isEditMode: false,
       isChecked: false,
       editedTask: null,
       index: Math.random(),
@@ -64,6 +74,7 @@ export default {
             editedTask: this.editedTask,
             status: this.status,
             isChecked: this.isChecked,
+            isEditMode: this.isEditMode,
           });
         } else {
           this.addList[this.editedTask].inputValue = this.inputValue;
@@ -77,6 +88,7 @@ export default {
       this.addList.splice(index, 1);
     },
     handleEdit(index) {
+      this.addList[index].isEditMode = true;
       this.inputValue = this.addList[index].inputValue;
       this.editedTask = index;
     },
@@ -99,16 +111,24 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.font {
-  width: 100%;
+h3 {
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 30px;
+  margin-bottom: 5px;
 }
 .wrapper {
+  width: 100%;
   display: flex;
   justify-content: center;
 }
 .container {
-  width: 300px;
-  height: 300px;
+  width: 500px;
+  height: 500px;
+  background-color: white;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 
 .added-list {
@@ -125,30 +145,30 @@ export default {
 }
 .add-button {
   height: 40px;
-  width: 100px;
+  width: 80px;
   color: white;
   background-color: #4682b4;
-  border-radius: 4px;
+
   margin-left: 3px;
 }
 .text-input {
   width: 600px;
   padding: 12px 20px;
   display: inline-block;
-  border: 1px solid #7fffd4;
-  border-radius: 4px;
+  border: 1px solid #00ced1;
   box-sizing: border-box;
 }
 .input-cnt {
   display: flex;
 }
 .edit-btn {
-  color: #4682b4;
   margin-left: 8px;
+  cursor: pointer;
 }
 .delete-btn {
-  color: #4682b4;
-  margin-left: 2px;
+  color: #bebebe;
+  margin-left: 5px;
+  cursor: pointer;
 }
 
 .value-cnt {
@@ -160,14 +180,21 @@ export default {
   justify-content: space-between;
 }
 .remove-btn {
-  height: 40px;
-  width: 100px;
+  height: 30px;
+  width: 150px;
   color: white;
   background-color: #4682b4;
-  border-radius: 4px;
 }
 .remove-cnt {
+  margin-top: 8px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+}
+.listdone-info {
+  height: 30px;
+  width: 150px;
+  border: 1px solid #bebebe;
+  display: flex;
+  align-items: center;
 }
 </style>
