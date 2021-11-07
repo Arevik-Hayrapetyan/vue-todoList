@@ -219,7 +219,15 @@ h3 {
 }
 @media (max-width: 400px) {
   .input-cnt {
-    width: 400px;
+    width: 300px;
+  }
+  .container {
+    width: 350px;
+    height: 350px;
+  }
+  .listdone-info {
+    height: 30px;
+    width: 90px;
   }
 }
 </style>
