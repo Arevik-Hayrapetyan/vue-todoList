@@ -40,9 +40,14 @@
       </div>
 
       <div class="remove-cnt">
-        <div class="listdone-info" v-bind:style="{}">
-          {{ filteredDoneList.length }} of {{ addList.length }} done
-        </div>
+        <progress
+          :content="filteredDoneList.length"
+          id="file"
+          class="progress"
+          :value="filteredDoneList.length"
+          :max="addList.length"
+        ></progress>
+
         <button class="remove-btn" @click="handleRemove(item)">
           Remove checked X
         </button>
@@ -198,25 +203,17 @@ h3 {
   display: flex;
   justify-content: space-between;
 }
-.listdone-info {
-  height: 30px;
-  width: 150px;
-  border: 1px solid #bebebe;
-  display: flex;
-  align-items: center;
+
+.progress[value] {
+  height: 25px;
+  width: 140px;
+  border-radius: 0;
   position: relative;
-  z-index: 1;
 }
-.listdone-info:before {
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  left: 0;
-  width: 60%;
-  height: 100%;
-  content: "";
+.progress {
   background-color: #7cfc00;
 }
+
 @media (max-width: 400px) {
   .input-cnt {
     width: 300px;
@@ -224,6 +221,7 @@ h3 {
   .container {
     width: 350px;
     height: 350px;
+    padding-left: 50px;
   }
   .listdone-info {
     height: 30px;
