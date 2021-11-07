@@ -217,4 +217,9 @@ h3 {
   content: "";
   background-color: #7cfc00;
 }
+@media (max-width: 400px) {
+  .input-cnt {
+    width: 400px;
+  }
+}
 </style>
