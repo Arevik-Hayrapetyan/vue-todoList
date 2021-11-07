@@ -40,7 +40,9 @@
       </div>
 
       <div class="remove-cnt">
-        <div class="listdone-info">ewdwede</div>
+        <div class="listdone-info" v-bind:style="{}">
+          {{ filteredDoneList.length }} of {{ addList.length }} done
+        </div>
         <button class="remove-btn" @click="handleRemove(item)">
           Remove checked X
         </button>
@@ -62,8 +64,10 @@ export default {
       index: Math.random(),
       inputValue: "",
       addList: [],
+      filteredDoneList: [],
     };
   },
+
   methods: {
     handleAdd() {
       if (this.inputValue !== "") {
@@ -99,10 +103,13 @@ export default {
       } else {
         this.addList[index].isChecked = false;
       }
-      console.log(this.addList[index].isChecked);
+      this.filteredDoneList = this.addList.filter(
+        (el) => el.isChecked === true
+      );
     },
     handleRemove() {
       this.addList = this.addList.filter((el) => el.isChecked === false);
+      this.filteredDoneList.length = 0;
       console.log(this.addList);
     },
   },
@@ -154,9 +161,10 @@ h3 {
 .text-input {
   width: 600px;
   padding: 12px 20px;
-  display: inline-block;
+  display: flex;
   border: 1px solid #00ced1;
   box-sizing: border-box;
+  justify-content: center;
 }
 .input-cnt {
   display: flex;
@@ -196,5 +204,17 @@ h3 {
   border: 1px solid #bebebe;
   display: flex;
   align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.listdone-info:before {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 60%;
+  height: 100%;
+  content: "";
+  background-color: #7cfc00;
 }
 </style>
